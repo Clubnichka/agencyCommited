@@ -1,0 +1,6 @@
+﻿@model agency.Models.CandList
+<h1>Ничего не найдено</h1>
+<form method="post" asp-controller="Home" asp-action="backHome1">
+    <p><button type="submit">Назад</button></p>
+    <input type="hidden" asp-for="companyId" value="@Model.companyId"/>
+</form>

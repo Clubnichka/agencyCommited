@@ -1,0 +1,47 @@
+﻿@model List<Employee>
+@{
+    ViewData["Title"] = "Соискатели";
+}
+
+
+<h1>Соискатели</h1>
+
+<table border="1" cellspacing="10">
+    <tr><th>Имя</th><th>опыт</th><th>Описание</th><th>возраст</th><th>Требуемая Зарплата</th><th>Требуемая должность</th></tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Name</td>
+            <td>@item.expirience</td>
+            <td>@item.aboutMe</td>
+            <td>@item.age</td>
+            <td>@item.requestedSalary</td>
+            <td>@item.reuestedPost</td>
+            <td>
+                <form method="post" asp-controller="Home" asp-action="MdropE1">
+                    <p><button type="submit">Удалить соискателя</button></p>
+                    <input type="hidden" name="e1ID" value="@item.Id"/>
+                </form>
+            </td>
+            <td>
+                <form method="post" asp-controller="Home" asp-action="Mreqvac">
+                    <p><button type="submit">Подобрать вакансии</button></p>
+                    <input type="hidden" name="e1ID" value="@item.Id" />
+                </form>
+            </td>
+            <td>
+                <form method="post" asp-controller="Home" asp-action="Maddtime">
+                    <p><button type="submit">Добавить 24 часа времени</button></p>
+                    <input type="hidden" name="e1ID" value="@item.Id" />
+                </form>
+            </td>
+        </tr>
+       
+    }
+</table>
+<form method="post" asp-controller="Home" asp-action="MaddE1">
+    <p><button type="submit">Добавить соискателя</button></p>
+</form>
+<form method="post" asp-controller="Home" asp-action="backHome">
+    <p><button type="submit">Назад</button></p>
+</form>

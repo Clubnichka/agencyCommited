@@ -1,0 +1,24 @@
+﻿@model agency.Models.Manager
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+ID - @Model.Id
+<div>
+    <form method="post" asp-controller="Home" asp-action="MEmployer">
+        <p><button type="submit">Посмотреть работодателей</button></p>
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+    </form>
+    <form method="post" asp-controller="Home" asp-action="MEmployee">
+        <p><button type="submit">Посмотреть соискателей</button></p>
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+    </form>
+    <form method="post" asp-controller="Home" asp-action="Mvac">
+        <p><button type="submit">Посмотреть вакансии</button></p>
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+    </form>
+</div>
+<form method="post" asp-controller="Home" asp-action="Index">
+    <p><button type="submit">Назад</button></p>
+</form>
