@@ -18,4 +18,8 @@ ID - @Model.Id
     <form method="post" asp-controller="Home" asp-action="viewreqvacancies"><p><button type="submit">Посмотреть подходящие вакансии</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
     </form>
+
+    <form method="post" asp-controller="Home" asp-action="cu">
+        <p><button type="submit">Посмотреть</button></p>
+    </form>
 </div>

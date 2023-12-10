@@ -13,6 +13,8 @@ namespace agency.Controllers
 
         public static int currentUserId;
 
+        public static bool isAdmin;
+
         private object locker=new object();
 
         public HomeController(agencyContext context)
@@ -117,11 +119,13 @@ namespace agency.Controllers
         {
             List<Employer> list = _context.Employer.ToList();
             List<Employee> list1 = _context.Employee.ToList();
+            List < Administrator > adm= _context.Administrator.ToList();
+            List<Manager> manager= _context.Manager.ToList();
             foreach (Employer curs in list)
             {
                 if (curs.Name == usr.Name && curs.Password == usr.Password)
                 {
-                    currentUserId = usr.Id;
+                    currentUserId = curs.Id;
                     if (curs.accessTime > 0) { return View("~/Views/Home/HomeEmployer.cshtml", curs); }
                     else { return View("~/Views/Home/Den1.cshtml", curs); }
                 }
@@ -130,9 +134,26 @@ namespace agency.Controllers
             {
                 if (curs.Name == usr.Name && curs.Password == usr.Password)
                 {
-                    currentUserId = usr.Id;
+                    currentUserId = curs.Id;
                     if (curs.accessTime > 0) { return View("~/Views/Home/HomeEmployee.cshtml", curs); }
                     else { return View("~/Views/Home/Den2.cshtml", curs); }
+                }
+            }
+            foreach (var curs in adm)
+            {
+                if (curs.Name == usr.Name && curs.Password == usr.Password)
+                {
+                    currentUserId = curs.Id;
+                    isAdmin = true;
+                    return View("~/Views/Home/HomeAdmin.cshtml", curs);
+                }
+            }
+            foreach (var curs in manager)
+            {
+                if (curs.Name == usr.Name && curs.Password == usr.Password)
+                {
+                    currentUserId = curs.Id;
+                    return View("~/Views/Home/HomeManager.cshtml", curs);
                 }
             }
             return View("~/Views/Home/Index.cshtml");
@@ -545,6 +566,170 @@ namespace agency.Controllers
             {
                 return View("~/Views/Home/NoFound1.cshtml", result);
             }
+        }
+        public async Task<IActionResult> ad()
+        {
+            Administrator administrator = new Administrator();
+            administrator.Name="admin";
+            administrator.Email="proventusavenici@gmail.com";
+            administrator.Password = "1893";
+            _context.Add(administrator);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+        }
+        public IActionResult ADmanager()
+        {
+            var listik = _context.Manager.ToList();
+            return View(listik);
+        }
+
+        public async Task<IActionResult> ADdropM(int mID)
+        {
+            List<Manager> list = _context.Manager.ToList();
+            Manager target = new Manager();
+            List<Manager> targetlist = new List<Manager>();
+            foreach (var curs in list)
+            {
+                if (mID == curs.Id)
+                {
+                    target = curs;
+                }
+            }
+            _context.Manager.Remove(target);
+            await _context.SaveChangesAsync();
+            list = _context.Manager.ToList();
+            return View("~/Views/Home/ADmanager.cshtml", list);
+        }
+        public IActionResult ADaddM()
+        {
+            return View();
+        }
+        public async Task<IActionResult> addM(Manager m)
+        {
+            _context.Manager.Add(m);
+            await _context.SaveChangesAsync();
+            return View("~/Views/Home/ADmanager.cshtml",_context.Manager.ToList());
+        }
+
+        public IActionResult ADEmployer()
+        {
+            var listik = _context.Employer.ToList();
+            return View(listik);
+        }
+
+        public IActionResult ADEmployee()
+        {
+            var listik = _context.Employee.ToList();
+            return View(listik);
+        }
+
+        public IActionResult ADvac()
+        {
+            var listik = _context.Vacancy.ToList();
+            return View(listik);
+        }
+
+        public async Task<IActionResult> ADdropE1(int e1ID)
+        {
+            List<Employee> list = _context.Employee.ToList();
+            Employee target = new Employee();
+            List<Employee> targetlist = new List<Employee>();
+            foreach (var curs in list)
+            {
+                if (e1ID == curs.Id)
+                {
+                    target = curs;
+                }
+            }
+            _context.Employee.Remove(target);
+            await _context.SaveChangesAsync();
+            list = _context.Employee.ToList();
+            return View("~/Views/Home/ADEmployee.cshtml",list);
+        }
+
+        public async Task<IActionResult> ADdropE2(int e2ID)
+        {
+            List<Employer> list = _context.Employer.ToList();
+            Employer target = new Employer();
+            List<Employer> targetlist = new List<Employer>();
+            foreach (var curs in list)
+            {
+                if (e2ID == curs.Id)
+                {
+                    target = curs;
+                }
+            }
+            _context.Employer.Remove(target);
+            await _context.SaveChangesAsync();
+            list = _context.Employer.ToList();
+            return View("~/Views/Home/ADEmployer.cshtml", list);
+        }
+
+        public async Task<IActionResult> ADdropV(int vID)
+        {
+            List<Vacancy> list = _context.Vacancy.ToList();
+            Vacancy target = new Vacancy();
+            List<Vacancy> targetlist = new List<Vacancy>();
+            foreach (var curs in list)
+            {
+                if (vID == curs.Id)
+                {
+                    target = curs;
+                }
+            }
+            _context.Vacancy.Remove(target);
+            await _context.SaveChangesAsync();
+            list = _context.Vacancy.ToList();
+            return View("~/Views/Home/ADvac.cshtml", list);
+        }
+
+        public async Task<IActionResult> addE1(Employee m)
+        {
+            m.aboutMe = "null";
+            m.requestedSalary = 0;
+            m.expirience = 0;
+            m.accessTime = 0;
+            m.reuestedPost = "null";
+            m.age = 0;
+            m.education = "null";
+            _context.Employee.Add(m);
+            await _context.SaveChangesAsync();
+            return View("~/Views/Home/ADEmployee.cshtml", _context.Employee.ToList());
+        }
+
+        public async Task<IActionResult> addE2(Employer m)
+        {
+            m.Description = "null";
+            m.accessTime = 0;
+            m.companyName = "null";
+            _context.Employer.Add(m);
+            await _context.SaveChangesAsync();
+            return View("~/Views/Home/ADEmployer.cshtml", _context.Employer.ToList());
+        }
+
+        public IActionResult ADaddE1()
+        {
+            return View();
+        }
+
+        public IActionResult ADaddE2()
+        {
+            return View();
+        }
+
+        public IActionResult HomeAdmin() {
+            var adm = _context.Administrator.FirstOrDefault(m => m.Id ==currentUserId);
+            if (isAdmin)
+            {
+
+                return View(adm);
+            }
+            else { return View(adm); }
+                
+        }
+
+        public IActionResult cu() {
+            return View(currentUserId);
         }
     }
 }
