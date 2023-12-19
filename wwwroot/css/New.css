@@ -1,0 +1,11 @@
+﻿.MNU {
+    width:contain;
+    background-color:aqua;
+    border-style:outset;
+    border-width:medium;
+    border-color:black;
+    align-content: center;
+    margin-left: 30%;
+    margin-top: 30%;
+}
+

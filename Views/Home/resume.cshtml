@@ -49,20 +49,23 @@
                 <input asp-for="aboutMe" class="form-control" type="text" />
                 <span asp-validation-for="aboutMe" class="text-danger"></span>
             </div>
+            <p/>
+            <p />
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Создать/Изменить" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
-
+<p />
+<p />
 <form method="post" asp-controller="Home" asp-action="Enter">
     <input asp-for="Id" class="form-control" type="hidden" value="@Model.Id" />
     <input asp-for="Name" class="form-control" type="hidden" value="@Model.Name" />
     <input asp-for="Password" class="form-control" type="hidden" value="@Model.Password" />
     <input asp-for="Email" class="form-control" type="hidden" value="@Model.Email" />
     <input asp-for="accessTime" class="form-control" type="hidden" value="@Model.accessTime" />
-    <p><button type="submit">Назад</button></p>
+    <p><button type="submit" class="btn btn-primary">Назад</button></p>
     
 </form>

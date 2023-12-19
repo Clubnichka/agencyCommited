@@ -56,12 +56,15 @@ namespace agency.Controllers
         [HttpPost]
         public async Task<IActionResult> Create1(Employer usr)
         {
-            usr.accessTime = 0;
-            usr.companyName = "";
-            usr.Description = "";
-            _context.Add(usr);
-            await _context.SaveChangesAsync();
-            return View("~/Views/Home/Index.cshtml");
+            if (Validator.EmailValid(usr.Email)&&Validator.PassValid(usr.Password))
+            {
+                usr.accessTime = 0;
+                usr.Description = "";
+                _context.Add(usr);
+                await _context.SaveChangesAsync();
+                return View("~/Views/Home/Index.cshtml");
+            }
+            return View("~/Views/Home/registration1.cshtml");
 
         }
 
@@ -69,17 +72,21 @@ namespace agency.Controllers
         [HttpPost]
         public async Task<IActionResult> Create2(Employee usr)
         {
-            usr.aboutMe = "null";
-            usr.expirience = 0;
-            usr.age = 0;
-            usr.requestedSalary = 0;
-            usr.accessTime = 0;
-            usr.education = "null";
-            usr.reuestedPost = "null";
+            if (Validator.EmailValid(usr.Email) && Validator.PassValid(usr.Password))
+            {
+                usr.aboutMe = "null";
+                usr.expirience = 0;
+                usr.age = 0;
+                usr.requestedSalary = 0;
+                usr.accessTime = 0;
+                usr.education = "null";
+                usr.reuestedPost = "null";
                 _context.Add(usr);
-            await _context.SaveChangesAsync();
-            return View("~/Views/Home/Index.cshtml");
-            
+                await _context.SaveChangesAsync();
+                return View("~/Views/Home/Index.cshtml");
+            }
+            return View("~/Views/Home/registration2.cshtml");
+
         }
 
         [HttpPost]
@@ -128,6 +135,8 @@ namespace agency.Controllers
                 if (curs.Name == usr.Name && curs.Password == usr.Password)
                 {
                     currentUserId = curs.Id;
+                    isAdmin = false;
+                    isManager = false;
                     if (curs.accessTime > 0) { return View("~/Views/Home/HomeEmployer.cshtml", curs); }
                     else { return View("~/Views/Home/Den1.cshtml", curs); }
                 }
@@ -137,6 +146,8 @@ namespace agency.Controllers
                 if (curs.Name == usr.Name && curs.Password == usr.Password)
                 {
                     currentUserId = curs.Id;
+                    isAdmin = false;
+                    isManager = false;
                     if (curs.accessTime > 0) { return View("~/Views/Home/HomeEmployee.cshtml", curs); }
                     else { return View("~/Views/Home/Den2.cshtml", curs); }
                 }
@@ -147,6 +158,7 @@ namespace agency.Controllers
                 {
                     currentUserId = curs.Id;
                     isAdmin = true;
+                    isManager = false;
                     return View("~/Views/Home/HomeAdmin.cshtml", curs);
                 }
             }
@@ -156,10 +168,11 @@ namespace agency.Controllers
                 {
                     currentUserId = curs.Id;
                     isManager = true;
+                    isAdmin = false;
                     return View("~/Views/Home/HomeManager.cshtml", curs);
                 }
             }
-            return View("~/Views/Home/Index.cshtml");
+            return View("~/Views/Home/autorization.cshtml");
 
         }
 
@@ -346,7 +359,7 @@ namespace agency.Controllers
             List<Employer> employers = _context.Employer.ToList();
             foreach(var employer in employers)
             {
-                if (employer.Id == id)
+                if (employer.Id == currentUserId)
                 {
                     return View("~/Views/Home/HomeEmployer.cshtml",employer);
                 }
@@ -394,6 +407,7 @@ namespace agency.Controllers
             VacList listik = new VacList();
             listik.list = list1;
             listik.companyId = employee.Id;
+            listik.employers = _context.Employer.ToList();
             return View(listik);
         }
 
@@ -405,7 +419,7 @@ namespace agency.Controllers
             List<Employee> employees = _context.Employee.ToList();
             foreach (var employee in employees)
             {
-                if (employee.Id == id)
+                if (employee.Id == currentUserId)
                 {
                     return View("~/Views/Home/HomeEmployee.cshtml", employee);
                 }
@@ -512,7 +526,9 @@ namespace agency.Controllers
                     }
                 }
             }
-            if (result.list!=null) {return View(result); }
+            if (result.list!=null) {
+                result.employers = _context.Employer.ToList();
+                return View(result); }
             else
             {
                 return View("~/Views/Home/NoFound.cshtml",result);
@@ -763,7 +779,10 @@ namespace agency.Controllers
         public IActionResult Mvac()
         {
             var listik = _context.Vacancy.ToList();
-            return View(listik);
+            VacList res = new VacList();
+            res.list = listik;
+            res.employers = _context.Employer.ToList();
+            return View(res);
         }
 
         public async Task<IActionResult> MdropE1(int e1ID)
@@ -793,6 +812,7 @@ namespace agency.Controllers
         {
             List<Employee> emplist = _context.Employee.ToList();
             List<Vacancy> vlist = _context.Vacancy.ToList();
+            List<Employer> employers = _context.Employer.ToList();
             var result = new VacList();
             result.companyId = e1ID;
             result.list = new List<Vacancy>();
@@ -820,7 +840,9 @@ namespace agency.Controllers
                     }
                 }
             }
-            if (result.list != null) { return View(result); }
+            if (result.list != null) {
+                result.employers = employers;
+                return View(result); }
             else
             {
                 return View("~/Views/Home/NoFound.cshtml", result);

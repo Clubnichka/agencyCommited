@@ -3,26 +3,25 @@
     ViewData["Title"] = "Home Page";
 }
 
+<div class="position-absolute top-50 start-50 translate-middle h-25 w-25" style="background-color:white; border: 3px solid black">
 
-ID - @Model.Id
-<h1><b>ЗДРАВСТВУЙТЕ ПОВЕЛИТЕЛЬ</b></h1>
-<div>
-    <form method="post" asp-controller="Home" asp-action="ADmanager"><p><button type="submit">Посмотреть менеджеров</button></p>
+    <form method="post" asp-controller="Home" asp-action="ADmanager">
+        <p><button type="submit" class="btn btn-primary btn-lg">Посмотреть менеджеров</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
     </form>
     <form method="post" asp-controller="Home" asp-action="ADEmployer">
-        <p><button type="submit">Посмотреть работодателей</button></p>
+        <p><button type="submit" class="btn btn-primary btn-lg">Посмотреть работодателей</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
     </form>
     <form method="post" asp-controller="Home" asp-action="ADEmployee">
-        <p><button type="submit">Посмотреть соискателей</button></p>
+        <p><button type="submit" class="btn btn-primary btn-lg">Посмотреть соискателей</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
     </form>
     <form method="post" asp-controller="Home" asp-action="ADvac">
-        <p><button type="submit">Посмотреть вакансии</button></p>
+        <p><button type="submit" class="btn btn-primary btn-lg">Посмотреть вакансии</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
     </form>
+    <form class="position-relative bottom-0 start-0" method="post" asp-controller="Home" asp-action="Index">
+        <p><button type="submit" class="btn btn-primary btn-lg">Назад</button></p>
+    </form>
 </div>
-<form method="post" asp-controller="Home" asp-action="Index">
-    <p><button type="submit">Назад</button></p>
-</form>

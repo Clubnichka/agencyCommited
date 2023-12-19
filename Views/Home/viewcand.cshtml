@@ -6,22 +6,24 @@
 
 <h1>Список кандидатови</h1>
 
-<table border="1" cellspacing="10">
-    <tr><th>Имяи</th><th>Опыт</th><th>Описание</th><th>Ввозраст</th><th>Требуемая зарплата</th><th>Требуемая должность</th></tr>
-    @foreach (Employee item in Model.list)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.expirience</td>
-            <td>@item.aboutMe</td>
-            <td>@item.age</td>
-            <td>@item.requestedSalary</td>
-            <td>@item.reuestedPost</td>
-        </tr>
-       
-    }
-</table>
-<form method="post" asp-controller="Home" asp-action="backHome">
-    <p><button type="submit">Назад</button></p>
-    <input type="hidden" asp-for="companyId" value="@Model.companyId" />
-</form>
+<div class="position-absolute top-50 start-50 translate-middle mw-100 mw-100" style="background-color:white; border: 3px solid black">
+    <table border="1" cellspacing="10">
+        <tr><th>Имяи</th><th>Опыт</th><th>Описание</th><th>Почта</th<th>Возраст</th><th>Требуемая зарплата</th><th>Требуемая должность</th></tr>
+        @foreach (Employee item in Model.list)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.expirience</td>
+                <td>@item.aboutMe</td>
+                <td>@item.Email</td>
+                <td>@item.age</td>
+                <td>@item.requestedSalary</td>
+                <td>@item.reuestedPost</td>
+            </tr>
+
+        }
+    </table>
+    <form method="post" asp-controller="Home" asp-action="backHome">
+        <p><button type="submit" class="btn btn-primary btn-lg">Назад</button></p>
+    </form>
+</div>

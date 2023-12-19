@@ -3,24 +3,32 @@
     ViewData["Title"] = "Home Page";
 }
 
-Время пользования - @Model.accessTime ч.
-ID - @Model.Id
-<div>
+<div class="position-absolute top-0 end-0 w-25" style="background-color:lightblue; border: 3px solid black">
+    <table>
+        <tr><th>Имя пользователя</th><th>Оставшееся время</th></tr>
+        <tr><td>@Model.Name</td><td>@Model.accessTime ч.</td></tr>
+    </table>
+</div>
+<div class="position-absolute top-50 start-50 translate-middle h-25 w-25" style="background-color:white; border: 3px solid black">
+
     <form method="post" asp-controller="Home" asp-action="pay2">
-        <p><button type="submit">Оплатить услуги</button></p>
+        <p><button type="submit" class="btn btn-primary btn-lg">Оплатить услуги</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
     </form>
     <form method="post" asp-controller="Home" asp-action="myVacList">
-        <p><button type="submit">Посмотреть мои вакансии</button></p>
+        <p><button type="submit" class="btn btn-primary btn-lg">Посмотреть мои вакансии</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
     </form>
-    <form method="post" asp-controller="Home" asp-action="viewcand"><p><button type="submit">Посмотреть кандидатов</button></p>
+    <form method="post" asp-controller="Home" asp-action="viewcand">
+        <p><button type="submit" class="btn btn-primary btn-lg">Посмотреть кандидатов</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
     </form>
-    <form method="post" asp-controller="Home" asp-action="viewreqcand"><p><button type="submit">Посмотреть подходящих кандидатов</button></p>
+    <form method="post" asp-controller="Home" asp-action="viewreqcand">
+        <p><button type="submit" class="btn btn-primary btn-lg">Посмотреть подходящих кандидатов</button></p>
         <input type="hidden" asp-for="Id" value="@Model.Id" />
+    </form>
+    <form class="position-relative bottom-0 start-0" method="post" asp-controller="Home" asp-action="Index">
+        <p><button type="submit" class="btn btn-primary btn-lg">Назад</button></p>
     </form>
 </div>
-<form method="post" asp-controller="Home" asp-action="Index">
-    <p><button type="submit">Назад</button></p>
-</form>
+

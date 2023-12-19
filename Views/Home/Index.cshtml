@@ -1,9 +1,19 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div>
-    <form method="post" asp-controller="Home" asp-action="chooser"><p><button type="submit">Зарегестрироваться</button></p></form>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - agency</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/New.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/Form.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/agency.styles.css" asp-append-version="true" />
+</head>
+<div class="position-absolute top-50 start-50 translate-middle h-25 w-25" style="background-color:white; border: 3px solid black">
+    <form class="position-absolute top-50 start-50 translate-middle" method="post" asp-controller="Home" asp-action="chooser"><p><button type="submit" class="btn btn-primary btn-lg">Зарегестрироваться</button></p></form>
     
-    <form method="post" asp-controller="Home" asp-action="autorization"><p><button type="submit">Войти</button></p></form>
+    <form class="position-absolute bottom-0 start-50 translate-middle" method="post" asp-controller="Home" asp-action="autorization"><p><button type="submit" class="btn btn-primary btn-lg">Войти</button></p></form>
 </div>

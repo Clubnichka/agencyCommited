@@ -1,9 +1,8 @@
 ﻿@{
-    ViewData["Title"] = "registration";
+    ViewData["Title"] = "Зарегестрироваться как как";
 }
 
-<div>
-    <form method="post" asp-controller="Home" asp-action="registration1"><p><button type="submit">Зарегестрироваться как работодатель</button></p></form>
-    <form method="post" asp-controller="Home" asp-action="registration2"><p><button type="submit">Зарегестрироваться как соискатель</button></p></form>   
+<div style="background-color:white; border: 3px solid black" class=" row position-absolute top-50 start-50 translate-middle h-25 w-25">
+    <form class="position-absolute top-50 start-50 translate-middle" method="post" asp-controller="Home" asp-action="registration1"><p><button type="submit" class="btn btn-primary btn-lg">Зарегестрироваться как работодатель</button></p></form>
+    <form class="position-absolute bottom-0 start-50 translate-middle"  method="post" asp-controller="Home" asp-action="registration2"><p><button type="submit" class="btn btn-primary btn-lg">Зарегестрироваться как соискатель</button></p></form>
 </div>
-<div><a href="Index.cshtml">Home</a></div>

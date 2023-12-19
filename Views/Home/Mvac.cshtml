@@ -1,4 +1,4 @@
-﻿@model List<Vacancy>
+﻿@model VacList
 @{
     ViewData["Title"] = "Вакансии";
 }
@@ -6,26 +6,24 @@
 
 <h1>Вакансии</h1>
 
-<table border="1" cellspacing="10">
-    <tr><th>Название вакансии</th><th>Необходимый опыт</th><th>Описание</th><th>Необходимый возраст</th><th>Зарплата</th></tr>
-    @foreach (Vacancy item in Model)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.requiredExpirience</td>
-            <td>@item.Description</td>
-            <td>@item.requiredAge</td>
-            <td>@item.salary</td>
-            <td>
-                <form method="post" asp-controller="Home" asp-action="ADdropV">
-                    <p><button type="submit">Удалить вакансию</button></p>
-                    <input type="hidden" name="vID" value="@item.Id"/>
-                </form>
-            </td>
-        </tr>
-       
-    }
-</table>
-<form method="post" asp-controller="Home" asp-action="backHome">
-    <p><button type="submit">Назад</button></p>
-</form>
+<div class="position-absolute top-50 start-50 translate-middle mw-100 mw-100" style="background-color:white; border: 3px solid black">
+    <table border="1" cellspacing="10">
+        <tr><th>Название вакансии</th><th>Необходимый опыт</th><th>Описание</th><th>Необходимый возраст</th><th>Зарплата</th><th>Название компании</th><th>Почта</th></tr>
+        @foreach (Vacancy item in Model.list)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.requiredExpirience</td>
+                <td>@item.Description</td>
+                <td>@item.requiredAge</td>
+                <td>@item.salary</td>
+                <td>@Model.employers.FirstOrDefault(m=>m.Id==item.Id).companyName</td>
+                <td>@Model.employers.FirstOrDefault(m=>m.Id==item.Id).Email</td>
+            </tr>
+
+        }
+    </table>
+    <form method="post" asp-controller="Home" asp-action="backHome">
+        <p><button type="submit" class="btn btn-primary btn-lg">Назад</button></p>
+    </form>
+</div>

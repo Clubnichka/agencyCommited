@@ -5,5 +5,7 @@
         public List<Vacancy> list {  get; set; }
         public int companyId {  get; set; } 
         public int curVacId {  get; set; }
+
+        public List<Employer> employers {  get; set; } 
     }
 }

@@ -3,8 +3,10 @@
     ViewData["Title"] = "Home Page";
 }
 
-Время пользования - @Model.accessTime ч.
-ID - @Model.Id
+<table border="1">
+    <tr><th>Имя пользователя</th><th>Оставшееся время</th></tr>
+    <tr><td>@Model.Name</td><td>@Model.accessTime ч.</td></tr>
+</table>
 <p>Услуги не оплачены, функционал недоступен</p>
 <div>
     <form method="post" asp-controller="Home" asp-action="pay">
